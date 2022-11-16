@@ -1,0 +1,29 @@
+.book-card__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+}
+
+.book-card__cover-container {
+  width: 100%;
+  position: relative;
+  padding-bottom: 100%;
+}
+
+.book-card__cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: contain;
+}
+
+.book-card__title {
+  font-weight: var(--font-weight-medium);
+  overflow: hidden;
+  text-align: left;
+  max-height: 1.5em;
+}
