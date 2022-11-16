@@ -1,12 +1,15 @@
-import './globals.css'
+import { Open_Sans } from "@next/font/google";
+import "./globals.css";
+
+const openSansFont = Open_Sans({ weight: ["300", "400", "500", "700"] });
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={openSansFont.className}>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
@@ -14,5 +17,5 @@ export default function RootLayout({
       <head />
       <body>{children}</body>
     </html>
-  )
+  );
 }
