@@ -21,7 +21,8 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@declarations/*": ["declarations/*"]
+      "@declarations/*": ["declarations/*"],
+      "@molecules/*": ["components/molecules/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
