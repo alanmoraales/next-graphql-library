@@ -1,60 +1,45 @@
+"use client";
+import { useQuery, gql } from "@apollo/client";
 import BookCard from "@molecules/BookCard/BookCard";
 import GridList from "components/organisms/GridList/GridList";
 
-const Home = () => (
-  <div>
-    <h1>Available Books</h1>
-    <GridList>
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-      <BookCard
-        title="Wigetta 1 blah blah blah blah blah blah, Wigetta 1 blah blah blah blah blah blah"
-        coverUrl="https://m.media-amazon.com/images/I/91onbOzEJYL.jpg"
-      />
-    </GridList>
-  </div>
-);
+type Book = {
+  title: string;
+  description: string;
+  id: number;
+  imageUrl: string;
+  availableQuantity: number;
+};
+
+const useAllBooks = (): Book[] => {
+  const query = gql`
+    {
+      allBooks {
+        title
+        description
+        id
+        imageUrl
+        availableQuantity
+      }
+    }
+  `;
+  const queryResponse = useQuery(query);
+  return (queryResponse.data?.allBooks || []) as Book[];
+};
+
+const Home = () => {
+  const books = useAllBooks();
+
+  return (
+    <div>
+      <h1>Available Books</h1>
+      <GridList>
+        {books.map(({ title, imageUrl }) => (
+          <BookCard key={title} title={title} coverUrl={imageUrl} />
+        ))}
+      </GridList>
+    </div>
+  );
+};
 
 export default Home;
