@@ -1,7 +1,7 @@
 "use client";
 import { useQuery, gql } from "@apollo/client";
-import BookCard from "@molecules/BookCard/BookCard";
-import GridList from "components/organisms/GridList/GridList";
+import BookCard from "@molecules/BookCard";
+import GridList from "components/organisms/GridList";
 
 type Book = {
   title: string;
