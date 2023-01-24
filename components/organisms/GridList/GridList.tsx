@@ -1,12 +1,14 @@
 import { ReactNode } from "react";
-import styles from "./grid-list.module.css";
+import { Grid } from "@chakra-ui/react";
 
 interface IGridListProps {
   children: ReactNode;
 }
 
 const GridList = ({ children }: IGridListProps) => (
-  <div className={styles["grid-list"]}>{children}</div>
+  <Grid gridTemplateColumns="repeat(auto-fit, minmax(200px, 1fr))" gap={4}>
+    {children}
+  </Grid>
 );
 
 export default GridList;
