@@ -1,8 +1,8 @@
 "use client";
 import { ReactNode } from "react";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { Open_Sans } from "@next/font/google";
-import "./globals.css";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const openSansFont = Open_Sans({ weight: ["300", "400", "500", "700"] });
 
@@ -23,7 +23,9 @@ const RootLayout = ({ children }: IRootLayoutProps) => (
       */}
     <head />
     <body>
-      <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+      <ChakraProvider>
+        <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+      </ChakraProvider>
     </body>
   </html>
 );
