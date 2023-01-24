@@ -34,8 +34,16 @@ const Home = () => {
     <div>
       <h1>Available Books</h1>
       <GridList>
-        {books.map(({ title, imageUrl }) => (
-          <BookCard key={title} title={title} coverUrl={imageUrl} />
+        {books.map(({ title, imageUrl, id, availableQuantity }) => (
+          <BookCard
+            key={id}
+            title={title}
+            coverUrl={imageUrl}
+            availableQuantity={availableQuantity}
+            onAddToCart={() => {}}
+            detailsUrl="/"
+            isAddingToCart={false}
+          />
         ))}
       </GridList>
     </div>
