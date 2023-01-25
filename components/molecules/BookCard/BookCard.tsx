@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   Flex,
@@ -10,26 +11,23 @@ import {
   ButtonGroup,
   IconButton,
   Tooltip,
-  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import Link from "next/link";
 
 interface IBookCardProps {
   title: string;
   coverUrl: string;
   availableQuantity: number;
-  detailsUrl: string;
+  onReadSynopsis: () => void;
   onAddToCart: () => void;
   isAddingToCart: boolean;
 }
 
-//
 const BookCard = ({
   title,
   coverUrl,
   availableQuantity,
-  detailsUrl,
+  onReadSynopsis,
   onAddToCart,
   isAddingToCart,
 }: IBookCardProps) => {
@@ -81,21 +79,9 @@ const BookCard = ({
             colorScheme="purple"
             isDisabled={isAddingToCart}
             padding="0"
-            onClick={onAddToCart}
+            onClick={onReadSynopsis}
           >
-            <ChakraLink
-              href={detailsUrl}
-              width="full"
-              paddingInlineStart={3}
-              paddingInlineEnd={3}
-              display="grid"
-              placeItems="center"
-              height="full"
-              pointerEvents={isAddingToCart ? "none" : "auto"}
-              as={Link}
-            >
-              Ver más
-            </ChakraLink>
+            Leer sinopsis
           </Button>
           <Tooltip label="Añadir al carrito" openDelay={500}>
             <IconButton
@@ -104,6 +90,7 @@ const BookCard = ({
               variant="outline"
               colorScheme="purple"
               isLoading={isAddingToCart}
+              onClick={onAddToCart}
             />
           </Tooltip>
         </ButtonGroup>
