@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Card,
   Flex,
@@ -13,6 +14,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
+import BookCoverImage from "@atoms/BookCoverImage";
 
 interface IBookCardProps {
   title: string;
@@ -37,23 +39,7 @@ const BookCard = ({
   return (
     <Card variant="outline">
       <Flex direction="column" width="100%" height="100%" padding={4} gap={4}>
-        <Box
-          position="relative"
-          paddingBottom="100%"
-          backgroundColor="purple.50"
-          borderRadius="md"
-        >
-          <Image
-            src={coverUrl}
-            alt={title}
-            width="100%"
-            height="100%"
-            position="absolute"
-            top="0"
-            left="0"
-            objectFit="contain"
-          />
-        </Box>
+        <BookCoverImage src={coverUrl} alt={title} isSquare />
         <Flex direction="column" gap={2}>
           <Heading size="sm" noOfLines={1}>
             {title}
