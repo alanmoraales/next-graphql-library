@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode } from "react";
 import { Open_Sans } from "@next/font/google";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
