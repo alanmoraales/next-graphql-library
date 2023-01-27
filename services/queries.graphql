@@ -1,0 +1,11 @@
+query AllBooks {
+  allBooks {
+    title
+    description
+    id
+    imageUrl
+    availableQuantity
+    createdAt
+    updatedAt
+  }
+}
