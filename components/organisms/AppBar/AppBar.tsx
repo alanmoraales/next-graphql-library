@@ -14,7 +14,9 @@ import {
   MenuGroup,
 } from "@chakra-ui/react";
 import ContentContainer from "@atoms/ContentContainer";
+import Emoji from "@atoms/Emoji";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import routes from "constants/routes";
 
 const AppBar = () => (
   <Box borderBottomWidth="1px">
@@ -24,8 +26,11 @@ const AppBar = () => (
       justifyContent="space-between"
       alignItems="baseline"
     >
-      <Link href="/">
-        <Heading size="md"> &#128214; Library</Heading>
+      <Link href={routes.home}>
+        <Heading size="md">
+          {" "}
+          <Emoji name="book" /> Library
+        </Heading>
       </Link>
       <Flex gap={2}>
         <Button
@@ -35,9 +40,9 @@ const AppBar = () => (
           alignItems="center"
           fontWeight="medium"
           as={Link}
-          href="/cart"
+          href={routes.cart}
         >
-          &#128722;
+          <Emoji name="cart" />
           <Highlight
             query={["2"]}
             styles={{
@@ -56,18 +61,23 @@ const AppBar = () => (
             rightIcon={<ChevronDownIcon />}
             variant="outline"
           >
-            &#129489;
+            <Emoji name="person" />
           </MenuButton>
           <MenuList>
             <MenuGroup title="I have an account">
-              <MenuItem icon={<>&#128075;</>} as={Link} href="/login">
-                Login
-              </MenuItem>
+              <Link href={routes.login}>
+                <MenuItem icon={<Emoji name="wavingHand" />}>Login</MenuItem>
+              </Link>
             </MenuGroup>
             <MenuGroup title="Or">
-              <MenuItem icon={<>&#129305;</>} as={Link} href="/register">
-                Register
-              </MenuItem>
+              <Link href={routes.register}>
+                <MenuItem icon={<Emoji name="callMeHand" />}>Register</MenuItem>
+              </Link>
+            </MenuGroup>
+            <MenuGroup title="Alan Morales">
+              <Link href={routes.login}>
+                <MenuItem icon={<Emoji name="victoryHand" />}>Logout</MenuItem>
+              </Link>
             </MenuGroup>
           </MenuList>
         </Menu>
