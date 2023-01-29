@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import NextLink from "next/link";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
@@ -10,6 +11,8 @@ import {
   CardFooter,
   CardHeader,
   Heading,
+  Text,
+  Link,
 } from "@chakra-ui/react";
 import Emoji from "@atoms/Emoji";
 import ContentContainer from "@atoms/ContentContainer";
@@ -77,7 +80,7 @@ const Login = () => {
             errorMessage={errors.password?.message}
           />
         </CardBody>
-        <CardFooter>
+        <CardFooter display="grid" gap={6}>
           <Button
             variant="solid"
             colorScheme="purple"
@@ -87,6 +90,13 @@ const Login = () => {
           >
             Login
           </Button>
+          <Text>
+            {`Don't have an account?`}{" "}
+            <Link as={NextLink} href={routes.register} color="purple.500">
+              register here
+            </Link>
+            .
+          </Text>
         </CardFooter>
       </Card>
     </ContentContainer>
