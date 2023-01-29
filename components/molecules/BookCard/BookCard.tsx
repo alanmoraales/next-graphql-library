@@ -3,8 +3,6 @@
 import {
   Card,
   Flex,
-  Box,
-  Image,
   Heading,
   Text,
   Highlight,
