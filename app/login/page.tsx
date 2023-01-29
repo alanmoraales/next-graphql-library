@@ -11,6 +11,7 @@ import {
   CardHeader,
   Heading,
 } from "@chakra-ui/react";
+import Emoji from "@atoms/Emoji";
 import ContentContainer from "@atoms/ContentContainer";
 import Input from "@molecules/Input";
 import useForm from "hooks/useForm";
@@ -54,7 +55,9 @@ const Login = () => {
         onSubmit={submit}
       >
         <CardHeader>
-          <Heading size="lg">&#128075; Welcome back</Heading>
+          <Heading size="lg">
+            <Emoji name="wavingHand" /> Welcome back
+          </Heading>
         </CardHeader>
         <CardBody display="grid" gap={4}>
           <Input
