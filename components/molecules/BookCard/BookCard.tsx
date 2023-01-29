@@ -31,7 +31,7 @@ const BookCard = ({
   onAddToCart,
   isAddingToCart,
 }: IBookCardProps) => {
-  const availableString = `${availableQuantity} disponibles.`;
+  const availableString = `${availableQuantity} available.`;
   const highlightColor = availableQuantity > 3 ? "green" : "red";
 
   return (
@@ -65,11 +65,11 @@ const BookCard = ({
             padding="0"
             onClick={onReadSynopsis}
           >
-            Leer sinopsis
+            Read synopsis
           </Button>
-          <Tooltip label="Añadir al carrito" openDelay={500}>
+          <Tooltip label="Add to cart" openDelay={500}>
             <IconButton
-              aria-label="Add to friends"
+              aria-label="Add to cart"
               icon={<AddIcon />}
               variant="outline"
               colorScheme="purple"
