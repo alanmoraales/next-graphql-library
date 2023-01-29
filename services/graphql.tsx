@@ -24,13 +24,17 @@ export type AuthResponse = {
 
 export type Book = {
   __typename?: 'Book';
+  author: Scalars['String'];
   availableQuantity: Scalars['Int'];
+  collection: Scalars['String'];
+  coverSrc: Scalars['String'];
   createdAt: Scalars['DateTime'];
-  description: Scalars['String'];
   id: Scalars['Int'];
-  imageUrl: Scalars['String'];
+  slug: Scalars['String'];
+  synopsis: Scalars['String'];
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+  year: Scalars['Int'];
 };
 
 export type Cart = {
@@ -135,16 +139,20 @@ export type UserResponse = {
 export type AllBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllBooksQuery = { __typename?: 'Query', allBooks: Array<{ __typename?: 'Book', title: string, description: string, id: number, imageUrl: string, availableQuantity: number, createdAt: any, updatedAt: any }> };
+export type AllBooksQuery = { __typename?: 'Query', allBooks: Array<{ __typename?: 'Book', id: number, title: string, slug: string, coverSrc: string, synopsis: string, author: string, year: number, collection: string, availableQuantity: number, createdAt: any, updatedAt: any }> };
 
 
 export const AllBooksDocument = gql`
     query AllBooks {
   allBooks {
-    title
-    description
     id
-    imageUrl
+    title
+    slug
+    coverSrc
+    synopsis
+    author
+    year
+    collection
     availableQuantity
     createdAt
     updatedAt

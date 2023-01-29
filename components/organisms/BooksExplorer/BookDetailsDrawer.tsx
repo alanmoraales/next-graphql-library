@@ -25,7 +25,7 @@ const BookDetailsDrawers = () => {
     getOnAddBookToCart,
     bookBeingAddedToCart,
   } = useBooksExplorerContext();
-  const { title, description, imageUrl } = selectedBook || {};
+  const { title, synopsis, coverSrc } = selectedBook || {};
 
   return (
     <Drawer
@@ -62,14 +62,14 @@ const BookDetailsDrawers = () => {
             margin="0 auto"
           >
             <BookCoverImage
-              src={imageUrl || ""}
+              src={coverSrc || ""}
               alt={title || ""}
               height="250px"
             />
             <Flex direction="column" gap={2}>
               <Heading size="sm">Synopsis</Heading>
               <Text fontSize="xl" as="cite">
-                {description}
+                {synopsis}
               </Text>
             </Flex>
           </Grid>

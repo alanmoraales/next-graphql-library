@@ -1,9 +1,13 @@
 query AllBooks {
   allBooks {
-    title
-    description
     id
-    imageUrl
+    title
+    slug
+    coverSrc
+    synopsis
+    author
+    year
+    collection
     availableQuantity
     createdAt
     updatedAt

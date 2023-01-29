@@ -13,12 +13,12 @@ const BooksList = () => {
   return (
     <GridList>
       {books.map((book) => {
-        const { title, imageUrl, id, availableQuantity } = book;
+        const { title, coverSrc, id, availableQuantity } = book;
         return (
           <BookCard
             key={id}
             title={title}
-            coverUrl={imageUrl}
+            coverUrl={coverSrc}
             availableQuantity={availableQuantity}
             onReadSynopsis={getOnReadBookDetails(book)}
             onAddToCart={getOnAddBookToCart(book)}
