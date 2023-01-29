@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { Open_Sans } from "@next/font/google";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
+import AppTemplate from "@organisms/AppTemplate";
 
 const openSansFont = Open_Sans({ weight: ["300", "400", "500", "700"] });
 
@@ -25,7 +26,9 @@ const RootLayout = ({ children }: IRootLayoutProps) => (
     <head />
     <body>
       <ChakraProvider>
-        <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
+        <ApolloProvider client={apolloClient}>
+          <AppTemplate>{children}</AppTemplate>
+        </ApolloProvider>
       </ChakraProvider>
     </body>
   </html>
