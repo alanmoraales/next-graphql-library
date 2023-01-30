@@ -5,12 +5,19 @@ import { Open_Sans } from "@next/font/google";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import AppTemplate from "@organisms/AppTemplate";
+import storage from "services/storage";
+import { AuthProvider } from "context/AuthContext";
 
 const openSansFont = Open_Sans({ weight: ["300", "400", "500", "700"] });
 
 const apolloClient = new ApolloClient({
   uri: "http://localhost:8080/graphql",
   cache: new InMemoryCache(),
+  headers: {
+    ...(storage.getUserToken() && {
+      Authorization: `Bearer ${storage.getUserToken()}`,
+    }),
+  },
 });
 
 interface IRootLayoutProps {
@@ -27,7 +34,9 @@ const RootLayout = ({ children }: IRootLayoutProps) => (
     <body>
       <ChakraProvider>
         <ApolloProvider client={apolloClient}>
-          <AppTemplate>{children}</AppTemplate>
+          <AuthProvider>
+            <AppTemplate>{children}</AppTemplate>
+          </AuthProvider>
         </ApolloProvider>
       </ChakraProvider>
     </body>
