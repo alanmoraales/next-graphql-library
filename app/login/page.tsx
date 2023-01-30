@@ -19,6 +19,7 @@ import ContentContainer from "@atoms/ContentContainer";
 import Input from "@molecules/Input";
 import useForm from "hooks/useForm";
 import routes from "constants/routes";
+import useAuthContext from "context/AuthContext";
 
 interface ILoginFormValues {
   email: string;
@@ -35,13 +36,14 @@ const loginFormSchema = yup.object().shape({
 
 const Login = () => {
   const router = useRouter();
+  const { onLogin } = useAuthContext();
   const {
     submit,
     register,
     formState: { errors },
     isSubmitting,
   } = useForm<ILoginFormValues>({
-    onSubmit: async (values) => console.log(values),
+    onSubmit: onLogin,
     resolver: yupResolver(loginFormSchema),
     successMessage: "You're logged in!",
     onSuccess: () => router.push(routes.home),
