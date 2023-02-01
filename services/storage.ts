@@ -9,9 +9,15 @@ const StorageService = () => {
     localStorage?.setItem("userToken", token);
   };
 
+  // A function that removes userToken from localStorage
+  const removeUserToken = () => {
+    localStorage?.removeItem("userToken");
+  };
+
   return {
     getUserToken,
     setUserToken,
+    removeUserToken,
   };
 };
 
