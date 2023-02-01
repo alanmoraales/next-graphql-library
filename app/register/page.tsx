@@ -19,6 +19,7 @@ import ContentContainer from "@atoms/ContentContainer";
 import Input from "@molecules/Input";
 import useForm from "hooks/useForm";
 import routes from "constants/routes";
+import useAuthContext from "context/AuthContext";
 
 interface IRegisterFormValues {
   name: string;
@@ -37,13 +38,14 @@ const registerFormSchema = yup.object().shape({
 
 const Register = () => {
   const router = useRouter();
+  const { onRegister } = useAuthContext();
   const {
     submit,
     register,
     formState: { errors },
     isSubmitting,
   } = useForm<IRegisterFormValues>({
-    onSubmit: async (values) => console.log(values),
+    onSubmit: onRegister,
     resolver: yupResolver(registerFormSchema),
     successMessage: "You're registered and logged in!",
     onSuccess: () => router.push(routes.home),
