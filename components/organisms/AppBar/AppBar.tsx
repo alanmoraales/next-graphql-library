@@ -21,7 +21,7 @@ import { When } from "react-if";
 import useAuthContext from "context/AuthContext";
 
 const AppBar = () => {
-  const { isLoggedIn, user } = useAuthContext();
+  const { isLoggedIn, user, onLogout } = useAuthContext();
 
   return (
     <Box borderBottomWidth="1px">
@@ -89,7 +89,11 @@ const AppBar = () => {
               </When>
               <When condition={isLoggedIn}>
                 <MenuGroup title={user?.name || ""}>
-                  <MenuItem icon={<Emoji name="victoryHand" />} color="red.500">
+                  <MenuItem
+                    icon={<Emoji name="victoryHand" />}
+                    color="red.500"
+                    onClick={onLogout}
+                  >
                     Logout
                   </MenuItem>
                 </MenuGroup>
