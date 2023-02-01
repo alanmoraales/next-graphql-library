@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 import {
   LoginUserMutationVariables,
@@ -5,6 +7,7 @@ import {
   RegisterUserMutationVariables,
   useLoginUserMutation,
   useMeQuery,
+  useRegisterUserMutation,
 } from "services/graphql";
 import storage from "services/storage";
 import AuthContext, { IAuthContext } from "./AuthContext";
@@ -14,8 +17,11 @@ interface IAuthProviderProps {
 }
 
 const AuthProvider = ({ children }: IAuthProviderProps) => {
-  const { data: user } = useMeQuery();
+  const { data: user, client } = useMeQuery({
+    errorPolicy: "ignore",
+  });
   const [loginUserMutation] = useLoginUserMutation();
+  const [registerUserMutation] = useRegisterUserMutation();
 
   const onLogin = async (loginParams: LoginUserMutationVariables) => {
     const authResponse = await loginUserMutation({
@@ -35,13 +41,28 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
-  const onLogout = async () => {};
+  const onLogout = () => {
+    storage.removeUserToken();
+    client.resetStore();
+  };
 
-  const onRegister = async ({
-    name,
-    email,
-    password,
-  }: RegisterUserMutationVariables) => {};
+  const onRegister = async (registerParams: RegisterUserMutationVariables) => {
+    const authResponse = await registerUserMutation({
+      variables: registerParams,
+      update: (cache, { data }) => {
+        cache.writeQuery({
+          query: MeDocument,
+          data: {
+            me: data?.registerUser.user,
+          },
+        });
+      },
+    });
+    const token = authResponse.data?.registerUser.token;
+    if (token) {
+      storage.setUserToken(token);
+    }
+  };
 
   const contextValue: IAuthContext = {
     user: user?.me,
