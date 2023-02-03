@@ -9,7 +9,7 @@ interface IAppTemplateProps {
 
 const AppTemplate = ({ children }: IAppTemplateProps) => {
   return (
-    <Flex direction="column" gap={4}>
+    <Flex direction="column" gap={4} paddingBottom="72px">
       <AppBar />
       {children}
     </Flex>
