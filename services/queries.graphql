@@ -43,3 +43,37 @@ query Me {
     email
   }
 }
+
+query UserCart {
+  cart {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+  }
+}
+
+mutation AddBookToCart($bookId: Float!, $quantity: Float!) {
+  addBookToCart(bookId: $bookId, quantity: $quantity) {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+  }
+}

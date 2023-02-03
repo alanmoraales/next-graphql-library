@@ -163,6 +163,19 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'UserResponse', id: number, name: string, email: string } };
 
+export type UserCartQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserCartQuery = { __typename?: 'Query', cart: { __typename?: 'Cart', id: number, items: Array<{ __typename?: 'CartItem', id: number, quantity: number, book: { __typename?: 'Book', id: number, title: string, coverSrc: string, author: string, year: number } }> } };
+
+export type AddBookToCartMutationVariables = Exact<{
+  bookId: Scalars['Float'];
+  quantity: Scalars['Float'];
+}>;
+
+
+export type AddBookToCartMutation = { __typename?: 'Mutation', addBookToCart: { __typename?: 'Cart', id: number, items: Array<{ __typename?: 'CartItem', id: number, quantity: number, book: { __typename?: 'Book', id: number, title: string, coverSrc: string, author: string, year: number } }> } };
+
 
 export const AllBooksDocument = gql`
     query AllBooks {
@@ -323,3 +336,93 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const UserCartDocument = gql`
+    query UserCart {
+  cart {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserCartQuery__
+ *
+ * To run a query within a React component, call `useUserCartQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserCartQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserCartQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserCartQuery(baseOptions?: Apollo.QueryHookOptions<UserCartQuery, UserCartQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserCartQuery, UserCartQueryVariables>(UserCartDocument, options);
+      }
+export function useUserCartLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserCartQuery, UserCartQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserCartQuery, UserCartQueryVariables>(UserCartDocument, options);
+        }
+export type UserCartQueryHookResult = ReturnType<typeof useUserCartQuery>;
+export type UserCartLazyQueryHookResult = ReturnType<typeof useUserCartLazyQuery>;
+export type UserCartQueryResult = Apollo.QueryResult<UserCartQuery, UserCartQueryVariables>;
+export const AddBookToCartDocument = gql`
+    mutation AddBookToCart($bookId: Float!, $quantity: Float!) {
+  addBookToCart(bookId: $bookId, quantity: $quantity) {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+  }
+}
+    `;
+export type AddBookToCartMutationFn = Apollo.MutationFunction<AddBookToCartMutation, AddBookToCartMutationVariables>;
+
+/**
+ * __useAddBookToCartMutation__
+ *
+ * To run a mutation, you first call `useAddBookToCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddBookToCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addBookToCartMutation, { data, loading, error }] = useAddBookToCartMutation({
+ *   variables: {
+ *      bookId: // value for 'bookId'
+ *      quantity: // value for 'quantity'
+ *   },
+ * });
+ */
+export function useAddBookToCartMutation(baseOptions?: Apollo.MutationHookOptions<AddBookToCartMutation, AddBookToCartMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddBookToCartMutation, AddBookToCartMutationVariables>(AddBookToCartDocument, options);
+      }
+export type AddBookToCartMutationHookResult = ReturnType<typeof useAddBookToCartMutation>;
+export type AddBookToCartMutationResult = Apollo.MutationResult<AddBookToCartMutation>;
+export type AddBookToCartMutationOptions = Apollo.BaseMutationOptions<AddBookToCartMutation, AddBookToCartMutationVariables>;
