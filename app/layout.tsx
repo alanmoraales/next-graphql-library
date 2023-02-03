@@ -2,7 +2,13 @@
 
 import { ReactNode } from "react";
 import { Open_Sans } from "@next/font/google";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import { ChakraProvider } from "@chakra-ui/react";
 import AppTemplate from "@organisms/AppTemplate";
 import AuthGuard from "@organisms/AuthGuard";
@@ -11,14 +17,25 @@ import storage from "services/storage";
 
 const openSansFont = Open_Sans({ weight: ["300", "400", "500", "700"] });
 
-const apolloClient = new ApolloClient({
+const httpLink = new HttpLink({
   uri: "http://localhost:8080/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = storage.getUserToken();
+  return {
+    headers: {
+      ...headers,
+      ...(token && {
+        Authorization: `Bearer ${token}`,
+      }),
+    },
+  };
+});
+
+const apolloClient = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-  headers: {
-    ...(storage.getUserToken() && {
-      Authorization: `Bearer ${storage.getUserToken()}`,
-    }),
-  },
 });
 
 interface IRootLayoutProps {
