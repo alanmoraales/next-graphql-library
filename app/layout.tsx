@@ -18,7 +18,7 @@ import storage from "services/storage";
 const openSansFont = Open_Sans({ weight: ["300", "400", "500", "700"] });
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:8080/graphql",
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
 });
 
 const authLink = setContext((_, { headers }) => {
