@@ -5,8 +5,9 @@ import { Open_Sans } from "@next/font/google";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import AppTemplate from "@organisms/AppTemplate";
-import storage from "services/storage";
+import AuthGuard from "@organisms/AuthGuard";
 import { AuthProvider } from "context/AuthContext";
+import storage from "services/storage";
 
 const openSansFont = Open_Sans({ weight: ["300", "400", "500", "700"] });
 
@@ -35,7 +36,9 @@ const RootLayout = ({ children }: IRootLayoutProps) => (
       <ChakraProvider>
         <ApolloProvider client={apolloClient}>
           <AuthProvider>
-            <AppTemplate>{children}</AppTemplate>
+            <AuthGuard>
+              <AppTemplate>{children}</AppTemplate>
+            </AuthGuard>
           </AuthProvider>
         </ApolloProvider>
       </ChakraProvider>
