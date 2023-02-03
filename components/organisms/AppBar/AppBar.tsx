@@ -19,9 +19,18 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import routes from "constants/routes";
 import { When } from "react-if";
 import useAuthContext from "context/AuthContext";
+import { useUserCartQuery } from "services/graphql";
 
 const AppBar = () => {
   const { isLoggedIn, user, onLogout } = useAuthContext();
+  const { data } = useUserCartQuery({
+    skip: !isLoggedIn,
+  });
+  const userCartItems = data?.cart.items || [];
+  const cartItemsCount = userCartItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
 
   return (
     <Box borderBottomWidth="1px">
@@ -50,7 +59,7 @@ const AppBar = () => {
             >
               <Emoji name="cart" />
               <Highlight
-                query={["2"]}
+                query={[`${cartItemsCount}`]}
                 styles={{
                   px: "2",
                   py: "1",
@@ -58,7 +67,7 @@ const AppBar = () => {
                   bg: `green.100`,
                 }}
               >
-                2
+                {`${cartItemsCount}`}
               </Highlight>
             </Button>
           </When>
