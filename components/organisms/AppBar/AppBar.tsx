@@ -38,7 +38,14 @@ const AppBar = () => {
   }, [isLoggedIn, fetchUserCart]);
 
   return (
-    <Box borderBottomWidth="1px">
+    <Box
+      borderBottomWidth="1px"
+      background="rgba(255, 255, 255, 0.9)"
+      backdropFilter="blur(14.5px)"
+      position="sticky"
+      top="0"
+      zIndex="10"
+    >
       <ContentContainer
         paddingY={4}
         direction="row"

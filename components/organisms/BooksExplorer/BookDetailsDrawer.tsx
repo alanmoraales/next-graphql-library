@@ -36,8 +36,13 @@ const BookDetailsDrawers = () => {
       placement="bottom"
       size="md"
     >
-      <DrawerOverlay />
-      <DrawerContent height={{ base: "100dvh", md: "60svh" }}>
+      <DrawerOverlay background="rgb(161 161 161 / 30%)" />
+      <DrawerContent
+        height={{ base: "100dvh", md: "60svh" }}
+        background="rgba(255, 255, 255, 0.85)"
+        backdropFilter="blur(20px)"
+        borderTopWidth="1px"
+      >
         <DrawerHeader>
           <Flex
             gap={4}
