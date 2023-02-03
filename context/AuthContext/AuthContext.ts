@@ -7,6 +7,7 @@ import {
 
 interface IAuthContext {
   user?: MeQuery["me"];
+  isLoadingUser: boolean;
   isLoggedIn: boolean;
   onLogin: (loginParams: LoginUserMutationVariables) => Promise<void>;
   onLogout: () => void;

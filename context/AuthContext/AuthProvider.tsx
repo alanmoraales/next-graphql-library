@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import {
   LoginUserMutationVariables,
@@ -9,15 +10,21 @@ import {
   useMeQuery,
   useRegisterUserMutation,
 } from "services/graphql";
-import storage from "services/storage";
 import AuthContext, { IAuthContext } from "./AuthContext";
+import storage from "services/storage";
+import routes from "constants/routes";
 
 interface IAuthProviderProps {
   children: ReactNode;
 }
 
 const AuthProvider = ({ children }: IAuthProviderProps) => {
-  const { data: user, client } = useMeQuery({
+  const router = useRouter();
+  const {
+    data: user,
+    loading,
+    client,
+  } = useMeQuery({
     errorPolicy: "ignore",
   });
   const [loginUserMutation] = useLoginUserMutation();
@@ -44,6 +51,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
   const onLogout = () => {
     storage.removeUserToken();
     client.resetStore();
+    router.push(routes.home);
   };
 
   const onRegister = async (registerParams: RegisterUserMutationVariables) => {
@@ -66,6 +74,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const contextValue: IAuthContext = {
     user: user?.me,
+    isLoadingUser: loading,
     isLoggedIn: Boolean(user),
     onLogin,
     onLogout,
