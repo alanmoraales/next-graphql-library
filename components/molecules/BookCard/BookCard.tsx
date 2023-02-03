@@ -21,6 +21,8 @@ interface IBookCardProps {
   onReadSynopsis: () => void;
   onAddToCart: () => void;
   isAddingToCart: boolean;
+  addToCartIsDisabled?: boolean;
+  addToCartLabel?: string;
 }
 
 const BookCard = ({
@@ -30,6 +32,8 @@ const BookCard = ({
   onReadSynopsis,
   onAddToCart,
   isAddingToCart,
+  addToCartIsDisabled = false,
+  addToCartLabel = "Add to cart",
 }: IBookCardProps) => {
   const availableString = `${availableQuantity} available.`;
   const highlightColor = availableQuantity > 3 ? "green" : "red";
@@ -67,14 +71,15 @@ const BookCard = ({
           >
             Read synopsis
           </Button>
-          <Tooltip label="Add to cart" openDelay={500}>
+          <Tooltip label={addToCartLabel} openDelay={500}>
             <IconButton
-              aria-label="Add to cart"
+              aria-label={addToCartLabel}
               icon={<AddIcon />}
               variant="outline"
               colorScheme="purple"
               isLoading={isAddingToCart}
               onClick={onAddToCart}
+              isDisabled={addToCartIsDisabled}
             />
           </Tooltip>
         </ButtonGroup>

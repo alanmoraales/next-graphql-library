@@ -17,8 +17,10 @@ import {
 } from "@chakra-ui/react";
 import BookCoverImage from "@atoms/BookCoverImage";
 import useBooksExplorerContext from "context/BooksExplorerContext";
+import useAuthContext from "context/AuthContext";
 
 const BookDetailsDrawers = () => {
+  const { isLoggedIn } = useAuthContext();
   const {
     selectedBook,
     onClearSelectedBook,
@@ -89,8 +91,9 @@ const BookDetailsDrawers = () => {
                 Boolean(bookBeingAddedToCart) &&
                 bookBeingAddedToCart?.id === selectedBook?.id
               }
+              isDisabled={!isLoggedIn}
             >
-              Add to cart
+              {isLoggedIn ? "Add to cart" : "Login to add to cart"}
             </Button>
           </Flex>
         </DrawerFooter>

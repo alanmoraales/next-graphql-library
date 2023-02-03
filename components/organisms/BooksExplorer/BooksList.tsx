@@ -1,8 +1,10 @@
 import BookCard from "@molecules/BookCard";
 import GridList from "@molecules/GridList";
+import useAuthContext from "context/AuthContext";
 import useBooksExplorerContext from "context/BooksExplorerContext";
 
 const BooksList = () => {
+  const { isLoggedIn } = useAuthContext();
   const {
     books,
     getOnReadBookDetails,
@@ -23,6 +25,8 @@ const BooksList = () => {
             onReadSynopsis={getOnReadBookDetails(book)}
             onAddToCart={getOnAddBookToCart(book)}
             isAddingToCart={bookBeingAddedToCart?.id === book.id}
+            addToCartIsDisabled={!isLoggedIn}
+            addToCartLabel={isLoggedIn ? "Add to cart" : "Login to add to cart"}
           />
         );
       })}
