@@ -14,15 +14,12 @@ const StorageService = () => {
 
   // A function that writes userToken to localStorage
   const setUserToken = withLocalStorageAvailable((token: string) => {
-    console.log("setUserToken", token);
     localStorage?.setItem("userToken", token);
   });
 
   // A function that removes userToken from localStorage
   const removeUserToken = withLocalStorageAvailable(() => {
-    console.log("removeUserToken");
     localStorage?.removeItem("userToken");
-    console.log("removeddddUserToken");
   });
 
   return {
