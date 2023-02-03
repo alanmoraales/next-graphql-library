@@ -20,11 +20,7 @@ interface IAuthProviderProps {
 
 const AuthProvider = ({ children }: IAuthProviderProps) => {
   const router = useRouter();
-  const {
-    data: user,
-    loading,
-    client,
-  } = useMeQuery({
+  const { data: user, loading } = useMeQuery({
     errorPolicy: "ignore",
   });
   const [loginUserMutation] = useLoginUserMutation();
