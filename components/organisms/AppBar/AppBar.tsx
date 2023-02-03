@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   Box,
   Button,
@@ -13,24 +14,28 @@ import {
   MenuItem,
   MenuGroup,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { When } from "react-if";
 import ContentContainer from "@atoms/ContentContainer";
 import Emoji from "@atoms/Emoji";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import routes from "constants/routes";
-import { When } from "react-if";
 import useAuthContext from "context/AuthContext";
-import { useUserCartQuery } from "services/graphql";
+import { useUserCartLazyQuery } from "services/graphql";
+import routes from "constants/routes";
 
 const AppBar = () => {
   const { isLoggedIn, user, onLogout } = useAuthContext();
-  const { data } = useUserCartQuery({
-    skip: !isLoggedIn,
-  });
+  const [fetchUserCart, { data }] = useUserCartLazyQuery();
   const userCartItems = data?.cart.items || [];
   const cartItemsCount = userCartItems.reduce(
     (acc, item) => acc + item.quantity,
     0
   );
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUserCart();
+    }
+  }, [isLoggedIn, fetchUserCart]);
 
   return (
     <Box borderBottomWidth="1px">
