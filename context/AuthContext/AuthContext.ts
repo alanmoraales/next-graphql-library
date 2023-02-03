@@ -10,6 +10,7 @@ interface IAuthContext {
   isLoadingUser: boolean;
   isLoggedIn: boolean;
   onLogin: (loginParams: LoginUserMutationVariables) => Promise<void>;
+  onLoginOrRegisterSuccess: () => void;
   onLogout: () => void;
   onRegister: (registerParams: RegisterUserMutationVariables) => Promise<void>;
 }

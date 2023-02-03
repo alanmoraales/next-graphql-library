@@ -72,6 +72,10 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
+  const onLoginOrRegisterSuccess = () => {
+    router.push(routes.home);
+  };
+
   const contextValue: IAuthContext = {
     user: user?.me,
     isLoadingUser: loading,
@@ -79,6 +83,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
     onLogin,
     onLogout,
     onRegister,
+    onLoginOrRegisterSuccess,
   };
 
   return (

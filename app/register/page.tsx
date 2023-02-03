@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import NextLink from "next/link";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -37,8 +36,7 @@ const registerFormSchema = yup.object().shape({
 });
 
 const Register = () => {
-  const router = useRouter();
-  const { onRegister } = useAuthContext();
+  const { onRegister, onLoginOrRegisterSuccess } = useAuthContext();
   const {
     submit,
     register,
@@ -48,7 +46,7 @@ const Register = () => {
     onSubmit: onRegister,
     resolver: yupResolver(registerFormSchema),
     successMessage: "You're registered and logged in!",
-    onSuccess: () => router.push(routes.home),
+    onSuccess: onLoginOrRegisterSuccess,
   });
 
   return (
