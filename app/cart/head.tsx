@@ -1,10 +1,10 @@
 const Head = () => (
   <>
-    <title>Library | Home</title>
+    <title>Library | Cart</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta
       name="description"
-      content="Explore the available books at The Library, add them to your cart, and create a reservation to go pick them up."
+      content="Overview your cart and create your reservation."
     />
     <link
       rel="icon"
