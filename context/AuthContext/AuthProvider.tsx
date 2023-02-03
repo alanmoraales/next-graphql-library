@@ -50,8 +50,7 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const onLogout = () => {
     storage.removeUserToken();
-    client.resetStore();
-    router.push(routes.home);
+    window.location.reload();
   };
 
   const onRegister = async (registerParams: RegisterUserMutationVariables) => {
