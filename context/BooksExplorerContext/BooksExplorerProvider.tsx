@@ -1,14 +1,21 @@
 import { ReactNode, useState } from "react";
-import { Book, useAllBooksQuery } from "services/graphql";
+import {
+  Book,
+  useAddBookToCartMutation,
+  useAllBooksQuery,
+} from "services/graphql";
 import BooksExplorerContext, {
   IBooksExplorerContext,
 } from "./BooksExplorerContext";
+import useNotification from "hooks/useNotification";
 
 interface IBooksExplorerProviderProps {
   children: ReactNode;
 }
 
 const BooksExplorerProvider = ({ children }: IBooksExplorerProviderProps) => {
+  const notify = useNotification();
+  const [addBookToCartMutation] = useAddBookToCartMutation();
   const { data, loading, error } = useAllBooksQuery();
   const [selectedBook, setSelectedBook] = useState<Book | undefined>();
   const [bookBeingAddedToCart, setBookBeingAddedToCart] = useState<
@@ -21,9 +28,24 @@ const BooksExplorerProvider = ({ children }: IBooksExplorerProviderProps) => {
     setSelectedBook(book);
   };
 
-  const getOnAddBookToCart = (book: Book) => () => {
-    setBookBeingAddedToCart(book);
-    // TODO: implement add to cart mutation
+  const getOnAddBookToCart = (book: Book) => async () => {
+    try {
+      setBookBeingAddedToCart(book);
+      await addBookToCartMutation({
+        variables: {
+          bookId: book.id,
+          quantity: 1,
+        },
+        refetchQueries: ["AllBooks"],
+      });
+      notify.success({ description: "Book added to cart" });
+    } catch (error: any) {
+      notify.error({
+        description: error?.message || "Could not add book to cart",
+      });
+    } finally {
+      setBookBeingAddedToCart(undefined);
+    }
   };
 
   const contextValue: IBooksExplorerContext = {
