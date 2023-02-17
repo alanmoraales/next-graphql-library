@@ -7,6 +7,8 @@ interface ICartBookItemProps {
   author: string;
   year: number;
   quantity: number;
+  onRemove: () => void;
+  isRemoving: boolean;
 }
 
 const CartBookItem = ({
@@ -15,6 +17,8 @@ const CartBookItem = ({
   author,
   year,
   quantity,
+  onRemove,
+  isRemoving,
 }: ICartBookItemProps) => {
   const quantityLabel = `${quantity} added.`;
 
@@ -52,6 +56,8 @@ const CartBookItem = ({
           colorScheme="red"
           size="sm"
           width="fit-content"
+          onClick={onRemove}
+          isLoading={isRemoving}
         >
           Remove
         </Button>

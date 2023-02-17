@@ -1,3 +1,5 @@
+"use client";
+
 import { Else, If, Then } from "react-if";
 import { useUserCartQuery } from "services/graphql";
 import CartBooksList from "./CartBooksList";
