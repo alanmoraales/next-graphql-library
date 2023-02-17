@@ -1,7 +1,11 @@
 "use client";
 
 import { Button, Flex, Heading, Highlight, Text } from "@chakra-ui/react";
-import { useUserCartQuery } from "services/graphql";
+import useNotification from "hooks/useNotification";
+import {
+  useCreateUserReserveMutation,
+  useUserCartQuery,
+} from "services/graphql";
 
 const CartSummaryContent = () => {
   const { data } = useUserCartQuery();
@@ -10,6 +14,8 @@ const CartSummaryContent = () => {
     (acc, item) => acc + item.quantity,
     0
   );
+  const [createUserReservation, { loading }] = useCreateUserReserveMutation();
+  const notify = useNotification();
   const countSuffixLabel = cartItemsCount === 1 ? "book" : "books";
   const cartItemsCountLabel = `${cartItemsCount} ${countSuffixLabel}`;
   const notEmptyCartText = `You're selecting ${cartItemsCountLabel} to pickup later. You'll receive an email with a QR code to pickup your books.`;
@@ -17,6 +23,20 @@ const CartSummaryContent = () => {
     "Your cart is empty. Add some books to create a reservation.";
   const cartIsEmpty = cartItemsCount === 0;
   const summaryText = cartIsEmpty ? emptyCartText : notEmptyCartText;
+
+  const onCreateUserReservation = async () => {
+    try {
+      await createUserReservation({
+        refetchQueries: ["UserCart"],
+      });
+      notify.success({ description: "Reservation created" });
+    } catch (error: any) {
+      notify.error({
+        description:
+          error.message || "Something went wrong while creating reservation",
+      });
+    }
+  };
 
   return (
     <>
@@ -41,6 +61,8 @@ const CartSummaryContent = () => {
         variant="solid"
         size={{ base: "sm", md: "md" }}
         isDisabled={cartIsEmpty}
+        onClick={onCreateUserReservation}
+        isLoading={loading}
       >
         Finish reservation
       </Button>
