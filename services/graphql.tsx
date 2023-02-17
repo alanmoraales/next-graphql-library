@@ -176,6 +176,18 @@ export type AddBookToCartMutationVariables = Exact<{
 
 export type AddBookToCartMutation = { __typename?: 'Mutation', addBookToCart: { __typename?: 'Cart', id: number, items: Array<{ __typename?: 'CartItem', id: number, quantity: number, book: { __typename?: 'Book', id: number, title: string, coverSrc: string, author: string, year: number } }> } };
 
+export type RemoveBookFromUserCartMutationVariables = Exact<{
+  bookId: Scalars['Float'];
+}>;
+
+
+export type RemoveBookFromUserCartMutation = { __typename?: 'Mutation', removeBookFromCart: { __typename?: 'Cart', id: number, items: Array<{ __typename?: 'CartItem', id: number, quantity: number, book: { __typename?: 'Book', id: number, title: string, coverSrc: string, author: string, year: number } }> } };
+
+export type CreateUserReserveMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CreateUserReserveMutation = { __typename?: 'Mutation', createReserve: { __typename?: 'Reserve', id: number, status: string, items: Array<{ __typename?: 'CartItem', id: number, quantity: number, book: { __typename?: 'Book', id: number, title: string, coverSrc: string, author: string, year: number } }> } };
+
 
 export const AllBooksDocument = gql`
     query AllBooks {
@@ -426,3 +438,91 @@ export function useAddBookToCartMutation(baseOptions?: Apollo.MutationHookOption
 export type AddBookToCartMutationHookResult = ReturnType<typeof useAddBookToCartMutation>;
 export type AddBookToCartMutationResult = Apollo.MutationResult<AddBookToCartMutation>;
 export type AddBookToCartMutationOptions = Apollo.BaseMutationOptions<AddBookToCartMutation, AddBookToCartMutationVariables>;
+export const RemoveBookFromUserCartDocument = gql`
+    mutation RemoveBookFromUserCart($bookId: Float!) {
+  removeBookFromCart(bookId: $bookId) {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+  }
+}
+    `;
+export type RemoveBookFromUserCartMutationFn = Apollo.MutationFunction<RemoveBookFromUserCartMutation, RemoveBookFromUserCartMutationVariables>;
+
+/**
+ * __useRemoveBookFromUserCartMutation__
+ *
+ * To run a mutation, you first call `useRemoveBookFromUserCartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveBookFromUserCartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeBookFromUserCartMutation, { data, loading, error }] = useRemoveBookFromUserCartMutation({
+ *   variables: {
+ *      bookId: // value for 'bookId'
+ *   },
+ * });
+ */
+export function useRemoveBookFromUserCartMutation(baseOptions?: Apollo.MutationHookOptions<RemoveBookFromUserCartMutation, RemoveBookFromUserCartMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveBookFromUserCartMutation, RemoveBookFromUserCartMutationVariables>(RemoveBookFromUserCartDocument, options);
+      }
+export type RemoveBookFromUserCartMutationHookResult = ReturnType<typeof useRemoveBookFromUserCartMutation>;
+export type RemoveBookFromUserCartMutationResult = Apollo.MutationResult<RemoveBookFromUserCartMutation>;
+export type RemoveBookFromUserCartMutationOptions = Apollo.BaseMutationOptions<RemoveBookFromUserCartMutation, RemoveBookFromUserCartMutationVariables>;
+export const CreateUserReserveDocument = gql`
+    mutation CreateUserReserve {
+  createReserve {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+    status
+  }
+}
+    `;
+export type CreateUserReserveMutationFn = Apollo.MutationFunction<CreateUserReserveMutation, CreateUserReserveMutationVariables>;
+
+/**
+ * __useCreateUserReserveMutation__
+ *
+ * To run a mutation, you first call `useCreateUserReserveMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserReserveMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserReserveMutation, { data, loading, error }] = useCreateUserReserveMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCreateUserReserveMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserReserveMutation, CreateUserReserveMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserReserveMutation, CreateUserReserveMutationVariables>(CreateUserReserveDocument, options);
+      }
+export type CreateUserReserveMutationHookResult = ReturnType<typeof useCreateUserReserveMutation>;
+export type CreateUserReserveMutationResult = Apollo.MutationResult<CreateUserReserveMutation>;
+export type CreateUserReserveMutationOptions = Apollo.BaseMutationOptions<CreateUserReserveMutation, CreateUserReserveMutationVariables>;

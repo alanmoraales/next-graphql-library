@@ -77,3 +77,38 @@ mutation AddBookToCart($bookId: Float!, $quantity: Float!) {
     }
   }
 }
+
+mutation RemoveBookFromUserCart($bookId: Float!) {
+  removeBookFromCart(bookId: $bookId) {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+  }
+}
+
+mutation CreateUserReserve {
+  createReserve {
+    id
+    items {
+      id
+      quantity
+      book {
+        id
+        title
+        coverSrc
+        author
+        year
+      }
+    }
+    status
+  }
+}
